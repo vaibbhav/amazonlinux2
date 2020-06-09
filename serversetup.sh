@@ -129,22 +129,22 @@ echo ""
 read -p "Enter site name: " SITE
 read -p "Your Site path " SITEPATH
 #/etc/hosts
-cp /etc/hosts /etc/hosts.original
+sudo cp /etc/hosts /etc/hosts.original
 echo -e "127.0.0.1\t${SITE}.local" >> /etc/hosts
 #httpd-vhosts.conf
 VHOSTSFILE="/etc/httpd/conf/httpd.conf"
-cp $VHOSTSFILE ${VHOSTSFILE}.original
-echo "<VirtualHost *:80>" >> $VHOSTSFILE
-echo -e "\tDocumentRoot \"${SITEPATH}\"" >> $VHOSTSFILE
-echo -e "\tServerName ${SITE}.local" >> $VHOSTSFILE
-echo -e "\tServerAlias ${SITE}.localhost" >> $VHOSTSFILE
-echo -e "\t<Directory \"${SITEPATH}\">" >> $VHOSTSFILE
-echo -e "\tOptions FollowSymLinks" >> $VHOSTSFILE
-echo -e "\tAllowOverride All" >> $VHOSTSFILE
-echo -e "\tAllow from all" >> $VHOSTSFILE
-echo -e "\tOrder allow,deny" >> $VHOSTSFILE
-echo -e "\t</Directory>" >> $VHOSTSFILE
-echo '</VirtualHost>' >> $VHOSTSFILE
+sudo cp $VHOSTSFILE ${VHOSTSFILE}.original
+sudo echo "<VirtualHost *:80>" >> $VHOSTSFILE
+sudo echo -e "\tDocumentRoot \"${SITEPATH}\"" >> $VHOSTSFILE
+sudo echo -e "\tServerName ${SITE}.local" >> $VHOSTSFILE
+sudo echo -e "\tServerAlias ${SITE}.localhost" >> $VHOSTSFILE
+sudo echo -e "\t<Directory \"${SITEPATH}\">" >> $VHOSTSFILE
+sudo echo -e "\tOptions FollowSymLinks" >> $VHOSTSFILE
+sudo echo -e "\tAllowOverride All" >> $VHOSTSFILE
+sudo echo -e "\tAllow from all" >> $VHOSTSFILE
+sudo echo -e "\tOrder allow,deny" >> $VHOSTSFILE
+sudo echo -e "\t</Directory>" >> $VHOSTSFILE
+sudo echo '</VirtualHost>' >> $VHOSTSFILE
 sudo systemctl restart httpd
 
 echo -e "\e[1m\e[32m************************************************************\e[0m"
