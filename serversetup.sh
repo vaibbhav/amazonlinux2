@@ -105,14 +105,14 @@ ln -s /usr/local/src/drush/drush /usr/bin/drush
 composer install
 drush --version
 echo -e "\e[1m\e[32m************************************************************\e[0m"
-echo -e "\e[1m\e[32m**              Installing Drupal                         **\e[0m"
+echo -e "\e[1m\e[32m**    Installing Drupal, Check login credentials Below    **\e[0m"
 echo -e "\e[1m\e[32m************************************************************\e[0m"
 echo ""
 cd /var/www/html/drupal
-drush site-install standard --db-url='mysql://root:root@localhost/shelldrupal' --site-name=Drupal
+drush site-install standard --db-url='mysql://root:root@localhost/shelldrupal' --site-name=Drupal -y
 echo ""
 echo -e "\e[1m\e[32m** Database credentials name: shelldrupal, username: root, password: root  **\e[0m"
-
+echo ""
 
 # sudo mkdir /var/www/html/drupal/sites/ 
 # ls /var/www/html/shellscript/modules/
@@ -132,7 +132,7 @@ read -p "Your Site path " SITEPATH
 cp /etc/hosts /etc/hosts.original
 echo -e "127.0.0.1\t${SITE}.local" >> /etc/hosts
 #httpd-vhosts.conf
-VHOSTSFILE="apache2.conf"
+VHOSTSFILE="/etc/httpd/conf/httpd.conf"
 cp $VHOSTSFILE ${VHOSTSFILE}.original
 echo "<VirtualHost *:80>" >> $VHOSTSFILE
 echo -e "\tDocumentRoot \"${SITEPATH}\"" >> $VHOSTSFILE
@@ -142,7 +142,8 @@ echo -e "\t<Directory \"${SITEPATH}\">" >> $VHOSTSFILE
 echo -e "\tOptions FollowSymLinks" >> $VHOSTSFILE
 echo -e "\tAllowOverride All" >> $VHOSTSFILE
 echo -e "\tAllow from all" >> $VHOSTSFILE
-echo -e "\tOrder allow,deny </Directory>" >> $VHOSTSFILE
+echo -e "\tOrder allow,deny" >> $VHOSTSFILE
+echo -e "\t</Directory>" >> $VHOSTSFILE
 echo '</VirtualHost>' >> $VHOSTSFILE
 sudo systemctl restart httpd
 
